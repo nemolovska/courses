@@ -1,0 +1,52 @@
+package main
+
+import (
+	"fmt"
+)
+
+type Year int
+type Name string
+type PetType string
+type Color string
+type Age int
+
+type Person struct {
+	Name       Name
+	PbirthYear Year
+	PetType    PetType
+	Color      Color
+	Age        Age
+}
+
+type Biography struct {
+	Person
+	MainText string
+}
+
+func main() {
+
+	mario := Biography{
+		Person: Person{
+			Name:       "Mario",
+			PbirthYear: 2021,
+			PetType:    "Cat",
+			Color:      "Like a Tiger",
+		},
+		MainText: "\nThis cat was born in Switzerland in a family of good cats. \nAt the age of 3 months, he was taken by Cederik, \nwho became his new friend and owner. \nWhen Mario grew up and became a teenager, \nhe began his work as a hunter. Now every spring, \nwhen it gets warm enough and a variety of mice, lizards and snakes crawl into the yard, \nMario start hunting.",
+	}
+
+	mario.print()
+
+}
+
+func (p Biography) print() {
+
+	thisYear := Year(2024)
+	birthYear := Year(p.PbirthYear)
+
+	Age := thisYear - birthYear
+
+	fmt.Printf("\nName: %v\nBirth: %v\nPet: %v\nColar: %v\nAge: %v\n", p.Name, p.PbirthYear, p.PetType, p.Color, Age)
+	print(p.MainText)
+
+}
