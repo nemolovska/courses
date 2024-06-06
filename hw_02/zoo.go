@@ -5,19 +5,9 @@ import (
 	"math/rand"
 )
 
-type Name string
-type AnimalType string
-type CageNomber int
-
-type InCage bool
-
-var AnimalOk int
-var AnimalNotOk int
-var AnimalsInZoo int
-
 type Animal struct {
-	Name       Name
-	AnimalType AnimalType
+	Name       string
+	AnimalType string
 
 	InCage bool
 
@@ -29,13 +19,12 @@ type Cage struct {
 }
 
 type ZooKeeper struct {
-	Name   Name
+	Name   string
 	AtWork bool
 }
 
 var animalslist []Animal
 var keeperlist []ZooKeeper
-
 func main() {
 
 	keeperlist = []ZooKeeper{
@@ -65,7 +54,11 @@ func main() {
 
 	ZooStatus()
 	ZooKeeperWork()
+	fmt.Printf("\nTotal number of animals in the zoo: %d\n", AnimalCounter(animalslist))
 
+}
+func AnimalCounter(animals []Animal) int {
+	return len(animals)
 }
 
 func ZooStatus() {
