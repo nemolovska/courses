@@ -23,16 +23,14 @@ type ZooKeeper struct {
 	AtWork bool
 }
 
-var animalslist []Animal
-var keeperlist []ZooKeeper
 func main() {
 
-	keeperlist = []ZooKeeper{
+	keeperlist := []ZooKeeper{
 		{"Antony", true},
 		{"Marta", true},
 	}
 
-	animalslist = []Animal{
+	animalslist := []Animal{
 		{"Leo", "Lion", true, (Cage{1})},
 		{"Liza", "Lion", false, (Cage{1})},
 		{"Wiwi", "Wolf", true, (Cage{2})},
@@ -52,16 +50,20 @@ func main() {
 		{"Mimo", "Mouse", false, (Cage{10})},
 	}
 
-	ZooStatus()
-	ZooKeeperWork()
+	ZooStatus(animalslist)
+	ZooKeeperWork(animalslist, keeperlist)
 	fmt.Printf("\nTotal number of animals in the zoo: %d\n", AnimalCounter(animalslist))
 
 }
+
 func AnimalCounter(animals []Animal) int {
 	return len(animals)
 }
 
-func ZooStatus() {
+func ZooStatus(animalslist []Animal) {
+
+	var AnimalOk int
+	var AnimalNotOk int
 
 	for _, animal := range animalslist {
 
@@ -74,17 +76,14 @@ func ZooStatus() {
 		}
 	}
 
-	AnimalsInZoo = AnimalOk + AnimalNotOk
-
-	fmt.Printf("\nAnimal in cage:%v\nAnimal ran away:%v\nNumbers of animals in the zoo:%v\n", AnimalOk, AnimalNotOk, AnimalsInZoo)
+	fmt.Printf("\nAnimal in cage:%v\nAnimal ran away:%v\n", AnimalOk, AnimalNotOk)
 
 }
 
-func ZooKeeperWork() {
+func ZooKeeperWork(animalslist []Animal, keeperlist []ZooKeeper) {
 
-	AnimalOk = 0
-	AnimalNotOk = 0
-	AnimalsInZoo = 0
+	var AnimalOk int
+	var AnimalNotOk int
 
 	for _, animal := range animalslist {
 		if !animal.InCage {
@@ -99,12 +98,10 @@ func ZooKeeperWork() {
 
 		AnimalOk++
 
-		if !animal.InCage { // it is here because a more complex scheme would need it
+		if !animal.InCage {
 			AnimalNotOk++
 		}
 	}
 
-	AnimalsInZoo = AnimalOk + AnimalNotOk
-
-	fmt.Printf("\nAnimal in cage:%v\nAnimal ran away:%v\nNumbers of animals in the zoo:%v\n", AnimalOk, AnimalNotOk, AnimalsInZoo)
+	fmt.Printf("\nAnimal in cage:%v\nAnimal ran away:%v\n", AnimalOk, AnimalNotOk)
 }
