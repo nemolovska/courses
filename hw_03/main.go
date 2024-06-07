@@ -6,9 +6,6 @@ import (
 	"time"
 )
 
-var choice int // додала її як публічну бо вважається що вона буде використовуватись всюди
-// але тільки для логіки швидкого вибору
-
 type MainCharacter struct {
 	Name         string
 	WeaponStatus bool
@@ -16,6 +13,7 @@ type MainCharacter struct {
 	Luck         int
 
 	YouLucky bool
+	Choice   int
 
 	Pet
 }
@@ -75,15 +73,16 @@ func (c *MainCharacter) CheckLuck() {
 }
 
 func (c *MainCharacter) Chapter1() {
+
 	foundSword := false
 
 	fmt.Printf("\n%s згадалось, що гуляли з %s і тоді щось його налякало і він шмигнув у ліс.\nКоли ти намагався його наздогнати, то впав і покотився в прірву.", c.Name, c.PetName)
 	fmt.Printf("\nТреба знайти %s, він наляканий і зовсім один в цьому страшному лісі. Рушай!\n\nОбери шлях:\n 1 - спробувати залізти назад у гору\n 2 - піти в гущу лісу\n", c.PetName)
 
-	fmt.Scan(&choice)
+	fmt.Scan(&c.Choice)
 
 	for {
-		switch choice {
+		switch c.Choice {
 		case 1:
 			fmt.Println("\nТи намагаєшся залізти в гору, ти майже доліз до самого верху, але земля занадто слизька.\nТи падаєш! Доведеться йти в ліс.")
 			c.Luck -= 2
@@ -93,7 +92,7 @@ func (c *MainCharacter) Chapter1() {
 
 		default:
 			fmt.Printf("\nНе зрозумів...\nОбери шлях:\n 1 - спробувати залізти назад у гору\n 2 - піти в гущу лісу\n")
-			fmt.Scan(&choice)
+			fmt.Scan(&c.Choice)
 			continue
 		}
 		break
@@ -102,10 +101,10 @@ func (c *MainCharacter) Chapter1() {
 	fmt.Println("\nТи рухаєшся вперед, але відчуття якісь дивні.\nРаптово ти помічаєш вогник, який наче рухається до тебе.")
 	fmt.Printf("\nЩо будеш робити:\n 1 - піти на зустріч до вогника\n 2 - спробувати сховатись\n")
 
-	fmt.Scan(&choice)
+	fmt.Scan(&c.Choice)
 
 	for {
-		switch choice {
+		switch c.Choice {
 		case 1:
 			fmt.Println("\nВогник наче хоче вказати тобі дорогу і ти йдеш до нього\n Через якийсь час ти опиняєшся біля каменю з мечем")
 			foundSword = true
@@ -115,7 +114,7 @@ func (c *MainCharacter) Chapter1() {
 
 		default:
 			fmt.Printf("\nНе зрозумів...\nЩо будеш робити:\n 1 - піти на зустріч до вогника\n 2 - спробувати сховатись\n")
-			fmt.Scan(&choice)
+			fmt.Scan(&c.Choice)
 			continue
 		}
 		break
@@ -125,10 +124,10 @@ func (c *MainCharacter) Chapter1() {
 		c.CheckLuck()
 		fmt.Printf("\nТи дивишся на цей меч і це нагадує тобі казки з дитинства.\n")
 		fmt.Printf("\nЩо будеш робити:\n 1 - спробувати витягнути меч\n 2 - йти далі, найважливіше зараз знайти %v\n", c.PetName)
-		fmt.Scan(&choice)
+		fmt.Scan(&c.Choice)
 
 		for {
-			switch choice {
+			switch c.Choice {
 			case 1:
 				if c.YouLucky {
 					fmt.Println("\nМеч тепер твій! Час продовжувати пошуки.")
@@ -143,17 +142,17 @@ func (c *MainCharacter) Chapter1() {
 
 			default:
 				fmt.Printf("\nЩе раз:\n 1 - спробувати витягнути меч\n 2 - йти далі, найважливіше зараз знайти %v\n", c.PetName)
-				fmt.Scan(&choice)
+				fmt.Scan(&c.Choice)
 				continue
 			}
 			break
 		}
 	} else {
 		fmt.Println("\nЩо далі:\n 1 - спробувати повернутсь до вогника\n 2 - йти далі")
-		fmt.Scan(&choice)
+		fmt.Scan(&c.Choice)
 
 		for {
-			switch choice {
+			switch c.Choice {
 			case 1:
 				fmt.Printf("\nНічого не вийшло, він зник.\nТи тільки більше втомився, але треба далі шукати %s.\nТи блукаєш до поки не знаходиш печеру.", c.PetName)
 				c.Luck -= 2
@@ -163,7 +162,7 @@ func (c *MainCharacter) Chapter1() {
 
 			default:
 				fmt.Printf("\nНе зрозумів...\nЩо далі:\n 1 - спробувати повернутсь до вогника\n 2 - йти далі\n")
-				fmt.Scan(&choice)
+				fmt.Scan(&c.Choice)
 				continue
 			}
 			break
@@ -175,11 +174,11 @@ func (c MainCharacter) Chapter2() {
 	fmt.Printf("\nТи довго блукав і яке щастя що знайшов печеру.\nПоруч з нею ти бачеш кроки %v", c.PetName)
 	fmt.Println("\nЩо робитимеш:\n 1 - втікти\n 2 - зайти в печеру")
 
-	fmt.Scan(&choice)
+	fmt.Scan(&c.Choice)
 	inCave := false
 
 	for {
-		switch choice {
+		switch c.Choice {
 		case 1:
 			fmt.Printf("\n%s пішов так і не знайшовши %v\nБільше в тебе ніколи не було друзів.\n", c.Name, c.PetName)
 		case 2:
@@ -188,7 +187,7 @@ func (c MainCharacter) Chapter2() {
 
 		default:
 			fmt.Printf("\nШо?:\n 1 - втікти\n 2 - зайти в печеру")
-			fmt.Scan(&choice)
+			fmt.Scan(&c.Choice)
 			continue
 		}
 		break
@@ -198,12 +197,12 @@ func (c MainCharacter) Chapter2() {
 		fmt.Printf("\nТи бачиш, що %v оточили привиди!\nЩО Ж РОБИТИ?", c.PetName)
 		fmt.Printf("\n 1 - одразу кинутись на допомогу\n 2 - спробувати придумати план\n")
 
-		fmt.Scan(&choice)
+		fmt.Scan(&c.Choice)
 
 		c.CheckLuck()
 
 		for {
-			switch choice {
+			switch c.Choice {
 			case 1:
 				if c.WeaponStatus {
 					fmt.Printf("\nТи зводиш меч і нападаєш на привидів.\nВиявляється вони бояться заліза і тобі вдається їх розлякати.\nТи виглядав дуже круто!\n%v підбігає до тебе. Він взахваті і безмежно радий тебе бачити!\nВи разом покидаєте печеру і більше ніколи не повертаєтесь в цей ліс.\n", c.PetName)
@@ -241,7 +240,7 @@ func (c MainCharacter) Chapter2() {
 
 			default:
 				fmt.Printf("\nБудь-ласка... просто обери нормально\n 1 - одразу кинутись на допомогу\n 2 - спробувати придумати план\n")
-				fmt.Scan(&choice)
+				fmt.Scan(&c.Choice)
 				continue
 			}
 			break
